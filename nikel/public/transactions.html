@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikel - Lançamentos</title>
+    <title>Nikel - Home</title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -22,10 +22,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <div class="d-flex">
+                    <div class="d-flex menu">
                         <div>
-                            <a href="home.html"><button type="button" class="btn"><i class="bi bi-house-fill fs-4 color-primary"></i></button></a>
-                            <a href="transactions.html"><button type="button" class="btn"><i class="bi bi-currency-exchange fs-4 color-secundary"></i></button></a>
+                            <a href="home.html"><button type="button" class="btn"><i class="bi bi-house-fill fs-4 color-secundary"></i></button></a>
+                            <a href="transactions.html"><button type="button" class="btn"><i class="bi bi-currency-exchange fs-4 color-primary"></i></button></a>
                         </div>
 
 
@@ -33,8 +33,8 @@
                             <button class="btn" data-bs-toggle="dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle color-primary fs-4"></i>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Sair</a></li>
+                            <ul class="dropdown-menu logout" aria-labelledby="dropdownMenuButton1">
+                                <li><button class="dropdown-item" id="button-logout" href="#">Sair</button></li>
                             </ul>
                         </div>
                     </div>      
@@ -50,8 +50,8 @@
         <div class="container-lg">
             <div class="row">
                 <div class="col mt-4 d-flex justify-content-start align-items-center">
-                    <i class="bi bi-currency-exchange color-primary icon-detail"></i>
-                    <span class="fs-2">Lançamentos</span>
+                    <i class="bi bi-cash-coin color color-primary icon-detail"></i>
+                    <span class= "fs-2" id="total">R$0,00</span>
                 </div>
                 <div class="col d-flex mt-4 justify-content-end">
                     <div>
@@ -64,80 +64,92 @@
             <div class="row">
                 <div class="col-12 shadow p-3 mb-5 bg-body-tertiary rounded">
                     <div class="container">
-                        <div class="rol">
-                            <div class="col">
-                                <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Data</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Tipo</th>
-                                        <th scope="col">Descrição</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <th scope="row">24-06-2021</th>
-                                        <td>50,00</td>
-                                        <td>Saida</td>
-                                        <td>Gasolina</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="fs-4">Entradas <i class="bi bi-arrow-down-circle fs-2 align-middle"></i></span>
                             </div>
+                            <div class="col-6">
+                                <span class="fs-4">Saídas <i class="bi bi-arrow-up-circle fs-2 align-middle"></i></span>
+                            </div>
+                            <div class="col-12 my-2">
+                                <hr>    
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="container p-0" id="cash-in-list">
+
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="container p-0" id="cash-out-list">
+
+                                    </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                R$0,00
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" class="button-default" id="transaction-button">Ver todas</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-
             <button class="button-float" data-bs-toggle="modal" data-bs-target="#transaction-modal"><i class="bi-plus"></i></button>
         </div>
 
+        <div class="modal fade" id="transaction-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar lançamento</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="transaction-form">
+                            <div class="mb-3">
+                              <label for="value-input" class="form-label">Valor</label>
+                              <input type="number" class="form-control" id="value-input" aria-describedby="emailHelp" required>
+                            </div> 
+                            <div class="mb-3">
+                              <label for="description-input" class="form-label">Descrição</label>
+                              <input type="text" class="form-control" id="description-input" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date-input" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="date-input" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type-input" id="inlineRadio1" value="1" checked>
+                                    <label class="form-check-label" for="inlineRadio1">Entrada</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type-input" id="inlineRadio2" value="2">
+                                    <label class="form-check-label" for="inlineRadio2">Saída</label>
+                                  </div>
 
-    <div class="modal fade" id="transaction-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar lançamento</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="transaction-form">
-                        <div class="mb-3">
-                          <label for="value-input" class="form-label">Valor</label>
-                          <input type="number" class="form-control" id="value-input" aria-describedby="emailHelp">
-                        </div> 
-                        <div class="mb-3">
-                          <label for="description-input" class="form-label">Descrição</label>
-                          <input type="text" class="form-control" id="description-input">
-                        </div>
-                        <div class="mb-3">
-                            <label for="date-input" class="form-label">Data</label>
-                            <input type="date" class="form-control" id="date-input">
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type-input" id="inlineRadio1" value="1" checked>
-                                <label class="form-check-label" for="inlineRadio1">Entrada</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type-input" id="inlineRadio2" value="2">
-                                <label class="form-check-label" for="inlineRadio2">Saída</label>
-                              </div>
-
-                        </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn button-default" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="button-default color-primary">Adicionar</button>
-                    </form>
+                            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn button-default" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="button-default color-primary">Adicionar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
 
     </main>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <script src=".\js\home.js"></script>
 </body>
 </html>
