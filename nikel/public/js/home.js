@@ -10,6 +10,9 @@ let data = {
 
 
 document.getElementById("button-logout").addEventListener("click", logout);
+document.getElementById("transaction-button").addEventListener("click", function () {
+    window.location.href = "transactions.html"
+})
 
 
 //adicionar lancamento
@@ -32,7 +35,8 @@ document.getElementById("transaction-form").addEventListener("submit", function 
     myModal.hide();
     alert("Lançamento adicionado com sucesso!");
     getCashIn();
-    getCashOut()
+    getCashOut();
+    getTotal();
 })
 
 checkLogged();
@@ -150,8 +154,24 @@ function getCashOut() {
     }
 
 
+
     document.getElementById("cash-out-list").innerHTML = cashOuthtml;
 
+}
+
+function getTotal() {
+    const transactions = data.transactions;
+    let total = 0;
+    
+    transactions.forEach((item) => {
+        if(item.type === "1") {
+            total += item.value;
+        } else {
+            total -= item.value;
+        }
+    })
+    
+    document.getElementById('total').innerHTML = `R$ ${total.toFixed(2)}`;
 }
 
 function saveData(data) {
